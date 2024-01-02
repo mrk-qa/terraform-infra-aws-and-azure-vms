@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "resource_group" {
-  name     = "rg-vm"
+  name     = "rg-vm-tf-github"
   location = var.location
 
   tags = local.common_tags
@@ -15,7 +15,7 @@ resource "azurerm_public_ip" "public_ip" {
 }
 
 resource "azurerm_network_interface" "network_interface" {
-  name                = "nic-terraform"
+  name                = "nic-tf-github"
   location            = var.location
   resource_group_name = azurerm_resource_group.resource_group.name
 

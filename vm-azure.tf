@@ -44,6 +44,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
     azurerm_network_interface.network_interface.id,
   ]
 
+  custom_data = base64encode(file("./scripts/index.sh"))
+
   admin_ssh_key {
     username   = "terraform"
     public_key = var.azure_key_pub

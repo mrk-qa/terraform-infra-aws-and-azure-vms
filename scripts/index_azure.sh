@@ -1,29 +1,13 @@
 #!/bin/bash
-apt update -y
-apt install -y apache2
 
-# Detecta o provedor de nuvem
-if curl -s -m 2 http://169.254.169.254/latest/meta-data/ >/dev/null 2>&1; then
-    # AWS
-    PROVIDER_NAME="AWS"
-elif curl -s -m 2 http://169.254.169.254/metadata/instance?api-version=2021-02-01 >/dev/null 2>&1; then
-    # Azure
-    PROVIDER_NAME="Azure"
-else
-    # Caso não seja AWS nem Azure, atribui um valor padrão
-    PROVIDER_NAME="ProvedorDesconhecido"
-fi
+PROVIDER_NAME="Azure"
+META_INST_ID="$HOSTNAME"
+META_INST_TYPE="$VM_SIZE"
+META_INST_AZ="$LOCATION"
 
-# Configura e inicia o serviço Apache
 systemctl start apache2
 systemctl enable apache2
 
-# Obtém os dados de metadados
-META_INST_ID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
-META_INST_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
-META_INST_AZ=$(curl http://169.254.169.254/latest/meta-data/placement/availability-zone)
-
-# Cria o arquivo HTML com a estrutura fornecida e os dados dinâmicos
 cat <<EOF > /var/www/html/index.html
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +58,7 @@ cat <<EOF > /var/www/html/index.html
             font-weight: 700;
             font-size: 24px;
             color: #6944ff;
-            margin-bottom: 15px;
+            margin-bottom: 15px.
         }
         .instance-card-inf__item {
             padding: 10px 35px;
@@ -90,7 +74,7 @@ cat <<EOF > /var/www/html/index.html
             margin-top: 7px;
         }
     </style>
-    <title>Amazon EC2 Status</title>
+    <title>Azure VM Status</title>
 </head>
 <body>
     <div class="wrapper">
@@ -107,7 +91,7 @@ cat <<EOF > /var/www/html/index.html
                         <div class="instance-card-inf__title">$META_INST_TYPE</div>
                     </div>
                     <div class="instance-card-inf__item">
-                        <div class="instance-card-inf__txt">Availability zone</div>
+                        <div class="instance-card-inf__txt">Availability Zone</div>
                         <div class="instance-card-inf__title">$META_INST_AZ</div>
                     </div>
                 </div>

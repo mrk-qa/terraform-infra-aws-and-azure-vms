@@ -11,6 +11,8 @@ resource "aws_instance" "vm" {
   vpc_security_group_ids      = [data.terraform_remote_state.network.outputs.security_group_id]
   associate_public_ip_address = true
 
+  user_data = file("./scripts/index.sh")
+
   tags = {
     Name = "vm-terraform"
   }

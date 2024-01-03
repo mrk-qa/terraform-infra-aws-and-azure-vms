@@ -1,17 +1,18 @@
 #!/bin/bash
 
-apt update -y
-apt install -y httpd
-systemctl start httpd
-systemctl enable httpd
-
 PROVIDER_NAME="Azure"
 
 META_INST_ID="$HOSTNAME"
 META_INST_TYPE="$VM_SIZE"
 META_INST_AZ="$LOCATION"
 
-cat <<EOF > /var/www/html/index.html
+HTML_DIR="/var/www/html"
+
+mkdir -p "$HTML_DIR"
+
+HTML_FILE="$HTML_DIR/index.html"
+
+cat <<EOF > "$HTML_FILE"
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,6 +1,13 @@
 #!/bin/bash
 
+apt update -y
+apt install -y apache2
+
 PROVIDER_NAME="Azure"
+
+systemctl start apache2
+systemctl enable apache2
+
 
 META_INST_ID="$HOSTNAME"
 META_INST_TYPE="$VM_SIZE"
@@ -11,6 +18,12 @@ HTML_DIR="/var/www/html"
 mkdir -p "$HTML_DIR"
 
 HTML_FILE="$HTML_DIR/index.html"
+
+sudo sed -i 's@DocumentRoot /var/www/html@DocumentRoot /var/www/html\n\t<Directory /var/www/html>\n\t\tOptions Indexes FollowSymLinks\n\t\tAllowOverride None\n\t\tRequire all granted\n\t</Directory>@' /etc/apache2/sites-available/000-default.conf
+
+systemctl restart apache2
+
+echo "Configuração concluída. O Apache2 está agora configurado para usar /var/www/html como DocumentRoot."
 
 cat <<EOF > "$HTML_FILE"
 <!DOCTYPE html>

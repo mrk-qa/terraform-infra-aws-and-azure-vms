@@ -21,7 +21,7 @@ resource "azurerm_network_interface" "network_interface" {
 
   ip_configuration {
     name                          = "public-ip-terraform"
-    subnet_id                     = data.terraform_remote_state.vnet.outputs.subnet_id
+    subnet_id                     = data.terraform_remote_state.vnet.outputs.subnet_id_azure
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.public_ip.id
   }
@@ -31,7 +31,7 @@ resource "azurerm_network_interface" "network_interface" {
 
 resource "azurerm_network_interface_security_group_association" "association_interface" {
   network_interface_id      = azurerm_network_interface.network_interface.id
-  network_security_group_id = data.terraform_remote_state.vnet.outputs.security_group_id
+  network_security_group_id = data.terraform_remote_state.vnet.outputs.security_group_id_azure
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {

@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "resource_group" {
 }
 
 resource "azurerm_public_ip" "public_ip" {
-  name                = "public-ip-terraform"
+  name                = "public-ip-terraform-github"
   resource_group_name = azurerm_resource_group.resource_group.name
   location            = var.location
   allocation_method   = "Dynamic"
@@ -20,8 +20,8 @@ resource "azurerm_network_interface" "network_interface" {
   resource_group_name = azurerm_resource_group.resource_group.name
 
   ip_configuration {
-    name                          = "public-ip-terraform"
-    subnet_id                     = data.terraform_remote_state.vnet.outputs.subnet_id_azure
+    name                          = "public-ip-terraform-github"
+    subnet_id                     = data.terraform_remote_state.vnet.outputs.subnet_id_azure_full
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.public_ip.id
   }
@@ -31,11 +31,11 @@ resource "azurerm_network_interface" "network_interface" {
 
 resource "azurerm_network_interface_security_group_association" "association_interface" {
   network_interface_id      = azurerm_network_interface.network_interface.id
-  network_security_group_id = data.terraform_remote_state.vnet.outputs.security_group_id_azure
+  network_security_group_id = data.terraform_remote_state.vnet.outputs.security_group_id_azure_full
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "vm-terraform"
+  name                = "vm-terraform-github"
   resource_group_name = azurerm_resource_group.resource_group.name
   location            = var.location
   size                = "Standard_B1s"
@@ -44,7 +44,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
     azurerm_network_interface.network_interface.id,
   ]
 
-  custom_data = base64encode(file("./scripts/index.sh"))
+  custom_data = base64encode(file("./scripts/index_azure.sh"))
 
   admin_ssh_key {
     username   = "terraform"

@@ -1,6 +1,9 @@
 #!/bin/bash
 
 apt update -y
+apt install -y httpd
+systemctl start httpd
+systemctl enable httpd
 
 PROVIDER_NAME="Azure"
 

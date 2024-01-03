@@ -1,12 +1,17 @@
 #!/bin/bash
 
+apt update -y
+apt install -y apache2
+
+# Variáveis de ambiente específicas do Azure
 PROVIDER_NAME="Azure"
-META_INST_ID="$HOSTNAME"
-META_INST_TYPE="$VM_SIZE"
-META_INST_AZ="$LOCATION"
 
 systemctl start apache2
 systemctl enable apache2
+
+META_INST_ID="$HOSTNAME"
+META_INST_TYPE="$VM_SIZE"
+META_INST_AZ="$LOCATION"
 
 cat <<EOF > /var/www/html/index.html
 <!DOCTYPE html>

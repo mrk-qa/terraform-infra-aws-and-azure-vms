@@ -39,7 +39,7 @@ data "terraform_remote_state" "network" {
   backend = "s3"
   config = {
     bucket = "remote-state-tf-marco-qa.amazonaws.com"
-    key    = "aws-vpc/terraform.tfstate"
+    key    = "aws-vpc-full/terraform.tfstate"
     region = "us-east-1"
   }
 }
@@ -50,6 +50,6 @@ data "terraform_remote_state" "vnet" {
     resource_group_name  = "rg-terraform-state"
     storage_account_name = "remotestatetfmarcoqa"
     container_name       = "remote-state-container"
-    key                  = "azure-vnet/terraform.tfstate"
+    key                  = "azure-vnet-full/terraform.tfstate"
   }
 }

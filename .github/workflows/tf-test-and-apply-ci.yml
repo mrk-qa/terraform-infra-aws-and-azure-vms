@@ -20,12 +20,12 @@ jobs:
       run:
         shell: bash
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
+    - uses: hashicorp/setup-terraform@v3
+
     - name: Terraform Unit Testing
-      run: |
-        terraform init
-        terraform test
+      id: test
+      run: terraform test
 
   terraform_apply:
     needs: terraform_test
@@ -35,9 +35,9 @@ jobs:
       run:
         shell: bash
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
+    - uses: hashicorp/setup-terraform@v3
+
     - name: Terraform Apply
-      run: |
-        terraform init
-        terraform apply -auto-approve
+      id: apply
+      run: terraform apply -auto-approve

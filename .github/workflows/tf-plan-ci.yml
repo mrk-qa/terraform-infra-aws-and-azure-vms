@@ -27,3 +27,18 @@ jobs:
         terraform init
         terraform validate
         terraform plan
+
+  terraform_test:
+    needs: terraform_plan
+    name: Terraform Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Terraform Test
+      run: |
+        terraform init
+        terraform test

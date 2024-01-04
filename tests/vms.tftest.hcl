@@ -71,7 +71,7 @@ run "test_validation_network_interface_azure" {
   command = plan
 
   assert {
-    condition     = azurerm_network_interface.network_interface.name == "nic-tf-githu"
+    condition     = azurerm_network_interface.network_interface.name == "nic-tf-github"
     error_message = "Network interface name did not match expected"
   }
 

@@ -1,4 +1,4 @@
-name: Terraform Plan
+name: 1 - [PLAN] Terraform Plan
 
 on: push
 

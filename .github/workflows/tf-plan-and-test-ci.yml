@@ -1,4 +1,4 @@
-name: Terraform Plan
+name: Terraform Plan and Unit Testing
 
 on: push
 
@@ -30,7 +30,7 @@ jobs:
 
   terraform_test:
     needs: terraform_plan
-    name: Terraform Unit Test
+    name: Terraform Unit Testing
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -38,7 +38,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Terraform Unit Test
+    - name: Terraform Unit Testing
       run: |
         terraform init
         terraform test

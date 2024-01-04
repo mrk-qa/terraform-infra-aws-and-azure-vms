@@ -20,10 +20,8 @@ jobs:
       run:
         shell: bash
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: hashicorp/setup-terraform@v3
-      with:
-        terraform_wrapper: true
     
     - name: Terraform fmt
       id: fmt
@@ -41,7 +39,3 @@ jobs:
     - name: Terraform Plan
       id: plan
       run: terraform plan
-      
-    - run: echo ${{ steps.plan.outputs.stdout }}
-    - run: echo ${{ steps.plan.outputs.stderr }}
-    - run: echo ${{ steps.plan.outputs.exitcode }}

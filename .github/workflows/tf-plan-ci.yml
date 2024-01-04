@@ -20,10 +20,22 @@ jobs:
       run:
         shell: bash
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v3
+    - uses: hashicorp/setup-terraform@v3
+    
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check
+      continue-on-error: true
+    
+    - name: Terraform Init
+      id: init
+      run: terraform init
+    
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+    
     - name: Terraform Plan
-      run: |
-        terraform init
-        terraform validate
-        terraform plan
+      id: plan
+      run: terraform plan

@@ -6,6 +6,8 @@ resource "azurerm_resource_group" "resource_group" {
 }
 
 resource "azurerm_public_ip" "public_ip" {
+  depends_on = [ azurerm_resource_group.resource_group ]
+
   name                = "public-ip-terraform-github"
   resource_group_name = azurerm_resource_group.resource_group.name
   location            = var.location
@@ -15,6 +17,8 @@ resource "azurerm_public_ip" "public_ip" {
 }
 
 resource "azurerm_network_interface" "network_interface" {
+  depends_on = [ azurerm_resource_group.resource_group ]
+
   name                = "nic-tf-github"
   location            = var.location
   resource_group_name = azurerm_resource_group.resource_group.name
@@ -30,11 +34,19 @@ resource "azurerm_network_interface" "network_interface" {
 }
 
 resource "azurerm_network_interface_security_group_association" "association_interface" {
+  depends_on = [ azurerm_resource_group.resource_group ]
+  
   network_interface_id      = azurerm_network_interface.network_interface.id
   network_security_group_id = data.terraform_remote_state.vnet.outputs.security_group_id_azure_full
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
+  depends_on = [
+    azurerm_network_interface.network_interface,
+    azurerm_public_ip.public_ip,
+    azurerm_network_interface_security_group_association.association_interface
+  ]
+
   name                = "vm-terraform-github"
   resource_group_name = azurerm_resource_group.resource_group.name
   location            = var.location

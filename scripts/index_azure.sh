@@ -8,9 +8,9 @@ PROVIDER_NAME="Azure"
 systemctl start apache2
 systemctl enable apache2
 
-INSTANCE_ID=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/instance/compute/resourceId?api-version=2021-02-01&format=text")
-PUBLIC_IP=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/publicIpAddress?api-version=2021-02-01&format=text")
-VM_SIZE=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2021-02-01&format=text")
+META_INST_ID=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/instance/compute/vmId?api-version=2021-02-01&format=text")
+META_INST_TYPE=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2021-02-01&format=text")
+META_INST_AZ=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/instance/compute/location?api-version=2021-02-01&format=text")
 
 HTML_DIR="/var/www/html"
 
@@ -100,15 +100,15 @@ cat <<EOF > "$HTML_FILE"
                 <div class="instance-card-inf">
                     <div class="instance-card-inf__item">
                         <div class="instance-card-inf__txt">Instance Id</div>
-                        <div class="instance-card-inf__title">$INSTANCE_ID</div>
+                        <div class="instance-card-inf__title">$META_INST_ID</div>
                     </div>
                     <div class="instance-card-inf__item">
                         <div class="instance-card-inf__txt">Instance Type</div>
-                        <div class="instance-card-inf__title">$VM_SIZE</div>
+                        <div class="instance-card-inf__title">$META_INST_TYPE</div>
                     </div>
                     <div class="instance-card-inf__item">
                         <div class="instance-card-inf__txt">Availability Zone</div>
-                        <div class="instance-card-inf__title">$LOCATION</div>
+                        <div class="instance-card-inf__title">$META_INST_AZ</div>
                     </div>
                 </div>
             </div>

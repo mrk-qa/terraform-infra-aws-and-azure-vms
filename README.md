@@ -19,10 +19,10 @@ azure
 
 <p align="center">View result in browser about VM in AWS with IP public access</p>
 
-<div align="center"><img width="600px"  src="https://github.com/mrk-qa/terraform-infra-aws-and-azure-vms/assets/102618854/95289b7c-b279-4d1c-bfbc-167e63db7014">
+<div align="center"><img width="600px"  src="https://github.com/mrk-qa/terraform-infra-aws-and-azure-vms/blob/92be9f641492d7768e65e3398251cbe1c9f794c2/assets/view_vm_aws.png">
 </div>
 
 <p align="center">View result in browser about VM in Azure with public IP access</p>
 
-<div align="center"><img width="600px"  src="https://github.com/mrk-qa/terraform-infra-aws-and-azure-vms/assets/102618854/6f53585e-c8e1-4371-be1d-92ff856b0a5a">
+<div align="center"><img width="600px"  src="https://github.com/mrk-qa/terraform-infra-aws-and-azure-vms/blob/92be9f641492d7768e65e3398251cbe1c9f794c2/assets/view_vm_azure.png">
 </div>

@@ -94,7 +94,7 @@ cat <<EOF > /var/www/html/index.html
                         <div class="instance-card-inf__title">$META_INST_TYPE</div>
                     </div>
                     <div class="instance-card-inf__item">
-                        <div class="instance-card-inf__txt">Availability zone</div>
+                        <div class="instance-card-inf__txt">Availability Zone</div>
                         <div class="instance-card-inf__title">$META_INST_AZ</div>
                     </div>
                 </div>

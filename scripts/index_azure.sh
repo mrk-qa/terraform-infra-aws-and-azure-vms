@@ -8,9 +8,9 @@ PROVIDER_NAME="Azure"
 systemctl start apache2
 systemctl enable apache2
 
-LOCATION=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/instance/compute/location?api-version=2021-01-01&format=text")
+INSTANCE_ID=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/instance/compute/resourceId?api-version=2021-02-01&format=text")
 PUBLIC_IP=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/publicIpAddress?api-version=2021-02-01&format=text")
-VM_SIZE=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2021-01-01&format=text")
+VM_SIZE=$(curl -s -H Metadata:true "http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2021-02-01&format=text")
 
 HTML_DIR="/var/www/html"
 
@@ -99,16 +99,16 @@ cat <<EOF > "$HTML_FILE"
                 <div class="instance-card__name">Hello, eu sou o servidor do Marco na $PROVIDER_NAME provisionado pelo Terraform</div>
                 <div class="instance-card-inf">
                     <div class="instance-card-inf__item">
-                        <div class="instance-card-inf__txt">Instance Location</div>
-                        <div class="instance-card-inf__title">$LOCATION</div>
+                        <div class="instance-card-inf__txt">Instance Id</div>
+                        <div class="instance-card-inf__title">$INSTANCE_ID</div>
                     </div>
                     <div class="instance-card-inf__item">
-                        <div class="instance-card-inf__txt">Instance Public IP</div>
-                        <div class="instance-card-inf__title">$PUBLIC_IP</div>
-                    </div>
-                    <div class="instance-card-inf__item">
-                        <div class="instance-card-inf__txt">VM Size</div>
+                        <div class="instance-card-inf__txt">Instance Type</div>
                         <div class="instance-card-inf__title">$VM_SIZE</div>
+                    </div>
+                    <div class="instance-card-inf__item">
+                        <div class="instance-card-inf__txt">Availability Zone</div>
+                        <div class="instance-card-inf__title">$LOCATION</div>
                     </div>
                 </div>
             </div>

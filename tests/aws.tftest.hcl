@@ -24,13 +24,12 @@ run "{AWS} test_validation_key_pair" {
   }
 }
 
-run "test_validation_vm" {
+run "{AWS} test_validation_vm" {
   command = plan
 
   variables {
     instance_type_aws = run.loading_module_random.instance_types_aws
     key_pair_name_aws = "aws-key-github-${run.loading_module_random.random_id}"
-    location_aws      = run.loading_module_random.region_types_aws
     tag_id_aws        = "vm-terraform-github-${run.loading_module_random.random_id}"
   }
 
@@ -81,11 +80,6 @@ run "test_validation_vm" {
 
   assert {
     condition     = length(aws_instance.vm.user_data) > 0
-    error_message = "User data did not match expected"
-  }
-
-  assert {
-    condition     = aws_instance.vm.availability_zone == run.loading_module_random.region_types_aws
     error_message = "User data did not match expected"
   }
 

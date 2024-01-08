@@ -119,7 +119,7 @@ variable "vm_ami_version_azure" {
 variable "tag_id_aws" {
   description = "Tag usado na AWS"
   type        = string
-  default = "vm-terraform-github"
+  default     = "vm-terraform-github"
 }
 
 variable "tag_id_azure" {

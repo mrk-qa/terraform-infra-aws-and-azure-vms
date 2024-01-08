@@ -72,7 +72,7 @@ run "{AZURE} test_validation_network_interface" {
 
   variables {
     network_interface_name_azure = "nic-tf-github-${run.loading_module_random.random_id}"
-    ip_configuration_name_azure = "public-ip-terraform-github-${run.loading_module_random.random_id}"
+    ip_configuration_name_azure  = "public-ip-terraform-github-${run.loading_module_random.random_id}"
     tag_id_azure = {
       owner      = "marco-${run.loading_module_random.random_id}"
       managed-by = "terraform-${run.loading_module_random.random_id}"
@@ -119,8 +119,8 @@ run "{AZURE} test_validation_vm" {
   command = plan
 
   variables {
-    vm_name_azure = "vm-terraform-github-${run.loading_module_random.random_id}"
-    vm_size_azure = run.loading_module_random.instance_types_azure
+    vm_name_azure           = "vm-terraform-github-${run.loading_module_random.random_id}"
+    vm_size_azure           = run.loading_module_random.instance_types_azure
     vm_admin_username_azure = run.loading_module_random.admin_username_azure
     tag_id_azure = {
       owner      = "marco-${run.loading_module_random.random_id}"

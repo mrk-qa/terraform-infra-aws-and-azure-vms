@@ -1,6 +1,3 @@
 locals {
-  common_tags = {
-    owner      = "marco-qa"
-    managed-by = "terraform"
-  }
+  common_tags = var.tag_id_azure
 }

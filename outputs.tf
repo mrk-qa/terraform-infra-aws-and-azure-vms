@@ -1,9 +1,9 @@
-output "vm_aws_ip" {
-  description = "IP da VM criada na AWS"
-  value       = aws_instance.vm.public_ip
+output "webserver_aws_url" {
+  description = "Webserver endpoint URL"
+  value       = "http://${aws_instance.vm.public_ip}"
 }
 
-output "vm_azure_ip" {
-  description = "IP da VM criada na Azure"
-  value       = azurerm_linux_virtual_machine.vm.public_ip_address
+output "webserver_azure_url" {
+  description = "Webserver endpoint URL"
+  value       = "http://${azurerm_linux_virtual_machine.vm.public_ip_address}"
 }

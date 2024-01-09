@@ -11,7 +11,14 @@ resource "aws_instance" "vm" {
   vpc_security_group_ids      = [data.terraform_remote_state.vpc.outputs.security_group_id_aws_full]
   associate_public_ip_address = true
 
-  user_data = file("./scripts/index_aws.sh")
+  user_data = var.environment == "test" ? file("./scripts/index_hello_world.sh") : file("./scripts/index_aws.sh")
+
+  lifecycle {
+    postcondition {
+      condition     = self.instance_state == "running"
+      error_message = "EC2 instance must be running."
+    }
+  }
 
   tags = {
     Name = var.tag_id_aws

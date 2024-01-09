@@ -1,23 +1,27 @@
 variable "aws_key_pub" {
   description = "Chave pública para a vm na AWS"
   type        = string
+
+  validation {
+    condition     = can(regex("^(ssh-rsa AAAAB3NzaC1yc2|ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNT|ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzOD|ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1Mj|ssh-ed25519 AAAAC3NzaC1lZDI1NTE5|ssh-dss AAAAB3NzaC1kc3)[0-9A-Za-z+/]+[=]{0,3}( .*)?$", var.aws_key_pub))
+    error_message = "Public Key Regex did not match expected"
+  }
 }
 
 variable "azure_key_pub" {
   description = "Chave pública para a vm na Azure"
   type        = string
+
+  validation {
+    condition     = can(regex("^(ssh-rsa AAAAB3NzaC1yc2|ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNT|ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzOD|ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1Mj|ssh-ed25519 AAAAC3NzaC1lZDI1NTE5|ssh-dss AAAAB3NzaC1kc3)[0-9A-Za-z+/]+[=]{0,3}( .*)?$", var.azure_key_pub))
+    error_message = "Public Key Regex did not match expected"
+  }
 }
 
 variable "location_azure" {
   description = "Região onde os recursos serão criados"
   type        = string
   default     = "East US"
-}
-
-variable "location_aws" {
-  description = "Região onde os recursos serão criados"
-  type        = string
-  default     = "us-east-1"
 }
 
 variable "key_pair_name_aws" {
@@ -30,6 +34,11 @@ variable "ami_aws" {
   description = "AMI utilizada na AWS"
   type        = string
   default     = "ami-0c7217cdde317cfec"
+
+  validation {
+    condition     = can(regex("^ami-[a-f0-9]{8,17}$", var.ami_aws))
+    error_message = "AMI Regex did not match expected"
+  }
 }
 
 variable "instance_type_aws" {
@@ -129,4 +138,10 @@ variable "tag_id_azure" {
     owner      = "marco-qa"
     managed-by = "terraform"
   }
+}
+
+variable "environment" {
+  description = "Ambiente no qual os recursos serão criados"
+  type        = string
+  default     = null
 }

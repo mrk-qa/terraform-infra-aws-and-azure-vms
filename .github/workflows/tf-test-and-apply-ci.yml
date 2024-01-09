@@ -1,4 +1,4 @@
-name: 2 - [APPLY] Terraform Unit Testing & Apply
+name: 2 - [APPLY] Terraform Testing & Apply
 
 on: workflow_dispatch
 

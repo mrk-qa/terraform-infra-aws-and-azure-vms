@@ -27,7 +27,7 @@ jobs:
       id: init
       run: terraform init
 
-    - name: Terraform Unit Testing
+    - name: Terraform Unit Testing & Integration Testing
       id: test
       run: terraform test
 

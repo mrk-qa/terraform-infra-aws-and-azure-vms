@@ -56,7 +56,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
     azurerm_network_interface.network_interface.id,
   ]
 
-  custom_data = var.environment == "test" ? base64encode(file("./scripts/index_hello_world.sh")) : base64encode(file("./scripts/index_azure.sh"))
+  custom_data = var.environment == "test" ? base64encode(file("./scripts/index_hello_marco.sh")) : base64encode(file("./scripts/index_azure.sh"))
 
   admin_ssh_key {
     username   = var.vm_admin_username_azure

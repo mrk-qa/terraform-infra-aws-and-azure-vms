@@ -26,12 +26,12 @@ run "webserver_is_running_on_azure" {
   }
 
   assert {
-    condition     = data.http.index.response_body == "Hello, World!\n"
-    error_message = "Website responded with body: ${data.http.index.response_body}"
+    condition     = data.http.index.status_code == 200
+    error_message = "Website responded with HTTP status ${data.http.index.status_code}"
   }
 
   assert {
-    condition     = data.http.index.status_code == 200
-    error_message = "Website responded with HTTP status ${data.http.index.status_code}"
+    condition     = data.http.index.response_body == "Hello, Marco!\n"
+    error_message = "Website responded with body: ${data.http.index.response_body}"
   }
 }

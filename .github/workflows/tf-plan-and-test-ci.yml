@@ -1,6 +1,6 @@
-name: 2 - [APPLY] Terraform Testing & Apply
+name: 1 - [PLAN] Terraform Plan & Testing
 
-on: workflow_dispatch
+on: push
 
 env:
   AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
@@ -13,9 +13,34 @@ env:
   TF_VAR_azure_key_pub: ${{secrets.TF_VAR_azure_key_pub}}
 
 jobs:
-  terraform_test:
-    name: Terraform Unit Testing
+  terraform_plan:
+    name: Terraform Plan
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v4
+    - uses: hashicorp/setup-terraform@v3
+    
+    - name: Terraform Init
+      id: init
+      run: terraform init
+    
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+    
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan
+
+  terraform_test:
+    needs: terraform_plan
+    name: Terraform Unit Testing & Integration Testing
+    runs-on: ubuntu-latest
+    outputs:
+      tests-passed: ${{ success() }}
     defaults:
       run:
         shell: bash
@@ -30,22 +55,3 @@ jobs:
     - name: Terraform Unit Testing & Integration Testing
       id: test
       run: terraform test
-
-  terraform_apply:
-    needs: terraform_test
-    name: Terraform Apply
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-    - uses: actions/checkout@v4
-    - uses: hashicorp/setup-terraform@v3
-
-    - name: Terraform Init
-      id: init
-      run: terraform init
-
-    - name: Terraform Apply
-      id: apply
-      run: terraform apply -auto-approve

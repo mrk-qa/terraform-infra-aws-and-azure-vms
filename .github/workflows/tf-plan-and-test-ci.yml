@@ -39,8 +39,6 @@ jobs:
     needs: terraform_plan
     name: Terraform Unit Testing & Integration Testing
     runs-on: ubuntu-latest
-    outputs:
-      tests-passed: ${{ steps.test.outputs.tests-passed }}
     defaults:
       run:
         shell: bash

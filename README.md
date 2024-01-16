@@ -6,11 +6,11 @@
 *The network structure is previously configured.*
 ```
 Resources created:
-aws
+aws/
    |-- aws_instance
    |-- aws_key_pair
    
-azure
+azure/
    |-- azurerm_resource_group
    |   |-- azurerm_network_interface
    |   |   |-- azurerm_public_ip

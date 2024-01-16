@@ -1,6 +1,6 @@
 # Terraform infra AWS and Azure Virtual Machines ☁️🖥️
 
-## 📑 Project structure
+## 📑 Project Structure
 
 *Before:*
 *The network structure is previously configured.*
@@ -16,6 +16,19 @@ azure
    |   |   |-- azurerm_public_ip
    |   |   |-- azurerm_network_interface_security_group_association
    |   |-- azurerm_linux_virtual_machine
+```
+
+## 📑 Test Project Structure
+
+```
+tests/
+   |-- modules/
+   |   |-- http/
+   |   |-- random/
+   |-- *unit_test_aws.tftest.hcl
+   |-- *unit_test_azure.tftest.hcl
+   |-- *integration_test_aws.tftest.hcl
+   |-- *integration_test_azure.tftest.hcl
 ```
 
 ## 🎯 Results
